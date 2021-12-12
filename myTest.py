@@ -12,11 +12,11 @@ from keras.models import Sequential
 from keras.layers.convolutional import Conv2D, MaxPooling2D
 from keras.layers import Dense, Flatten
 
-data_path = os.path.abspath('../gesty')
+data_path = os.path.abspath('./Traindata')
 os.path.exists(data_path)
 
 batch_size = 32
-class_names = ["Gesture_0", "Gesture_1"]
+class_names = ["Gesture_0", "Gesture_1", "Gesture_2", "Gesture_3", "Gesture_4", "Gesture_5"]
 num_classes = len(class_names)
 img_size = 50
 num_channels = 3
@@ -58,7 +58,7 @@ test = np.argmax(predictions[0]), data.valid.labels[0]
 print('hello')
 
 def validate(predictions, label_array, img_array):
-    class_names = ["Victory", "Hello"]
+    class_names = ["PointingFinger", "Victory", "Hello", "Thumb", "Horns", "OK"]
     plt.figure(figsize=(15,5))
 
     for i in range(1,10):
