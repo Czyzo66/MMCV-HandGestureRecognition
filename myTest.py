@@ -1,13 +1,8 @@
-import tensorflow as tf
 import dataLoader
 import os
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
-import pandas as pd
-import tensorflow as tf
-from tensorflow import keras
-from sklearn.model_selection import train_test_split
 from keras.models import Sequential
 from keras.layers.convolutional import Conv2D, MaxPooling2D
 from keras.layers import Dense, Flatten
@@ -31,12 +26,20 @@ print("Number of files in Validation-set:\t{}".format(len(data.valid.labels)))
 
 ##Creation of the model
 model = Sequential()
+
+# Convolutional layer + RELU
 model.add(Conv2D(32, (5, 5), activation='relu', input_shape=(50, 50, 1)))
+# Max Pooling
 model.add(MaxPooling2D((2, 2)))
+# Convolutional layer + RELU
 model.add(Conv2D(64, (3, 3), activation='relu'))
+# Max Pooling
 model.add(MaxPooling2D((2, 2)))
+# Convolutional layer + RELU
 model.add(Conv2D(64, (3, 3), activation='relu'))
+# Max Pooling
 model.add(MaxPooling2D((2, 2)))
+# Fully Connected
 model.add(Flatten())
 model.add(Dense(128, activation='relu'))
 model.add(Dense(10, activation='softmax'))
