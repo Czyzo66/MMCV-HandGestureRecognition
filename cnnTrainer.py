@@ -1,4 +1,4 @@
-import dataLoader
+import cnnDataLoader
 import os
 import cv2
 import numpy as np
@@ -12,12 +12,14 @@ os.path.exists(data_path)
 
 batch_size = 32
 class_names = ["Gesture_0", "Gesture_1", "Gesture_2", "Gesture_3", "Gesture_4", "Gesture_5"]
+global cnn_class_names
+cnn_class_names = ["PointingFinger", "Victory", "Hello", "Thumb", "Horns", "OK"]
 num_classes = len(class_names)
 img_size = 50
 num_channels = 3
 validation_size = 0.2
 
-data = dataLoader.read_train_sets(data_path, img_size, class_names, validation_size=validation_size)
+data = cnnDataLoader.read_train_sets(data_path, img_size, class_names, validation_size=validation_size)
 
 print("Complete reading input data. Will Now print a snippet of it")
 print("Number of files in Training-set:\t{}".format(len(data.train.labels)))
@@ -51,17 +53,18 @@ model.fit(data.train.images,
           batch_size=batch_size,
           verbose=2,
           validation_data=(data.train.images, data.train.labels))
-model.save('handrecognition_model.h5')
-
+print('Saving model...')
+model.summary()
+model.save('handrecognition_cnn_model.h5')
+print('Saved model')
+print('Test model...')
 test_loss, test_acc = model.evaluate(data.valid.images, data.valid.labels)
-print('Test acc: {:2.2f}%'.format(test_acc*100))
+print('Accuracy: {:2.2f}%'.format(test_acc*100))
 
 predictions = model.predict(data.valid.images)
 test = np.argmax(predictions[0]), data.valid.labels[0]
-print('hello')
 
 def validate(predictions, label_array, img_array):
-    class_names = ["PointingFinger", "Victory", "Hello", "Thumb", "Horns", "OK"]
     plt.figure(figsize=(15,5))
 
     for i in range(1,10):
@@ -84,9 +87,9 @@ def validate(predictions, label_array, img_array):
         else:
             color = 'red'
 
-        plt.xlabel("Predicted: {} {:2.0f}% (True: {})".format(class_names[predicted_label],
+        plt.xlabel("Predicted: {} {:2.0f}% (True: {})".format(cnn_class_names[predicted_label],
                                                               100 * np.max(prediction),
-                                                              class_names[label]),
+                                                              cnn_class_names[label]),
                    color=color)
 
     plt.show()
