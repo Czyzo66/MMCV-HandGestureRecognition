@@ -130,4 +130,5 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-.h5
+# other
+gesty.jpg
