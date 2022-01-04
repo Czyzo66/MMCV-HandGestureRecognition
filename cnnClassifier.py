@@ -21,11 +21,11 @@ class CnnClassifier:
         image = np.multiply(image, 1.0 / 255.0)
         prediction = self.model.predict(np.array([image]))
         print(prediction)
+        class_det = np.argmax(prediction, axis=1)
         result = CnnClassficationResult()
-        result.confidence = max(max(prediction))
         cnn_class_names = ["PointingFinger", "Victory", "Hello", "Thumb", "Horns", "OK"]
-        pred = prediction.tolist()
-        result.resultString = cnn_class_names[pred.index(max(pred))]
+        result.confidence = max(max(prediction))
+        result.resultString = cnn_class_names[class_det[0]]
         result.img = image
         print('Detected ' + result.resultString + ' with confidence ' + str(result.confidence))
 
