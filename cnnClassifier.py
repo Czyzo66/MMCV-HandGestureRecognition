@@ -1,7 +1,9 @@
 from keras.models import load_model
 import cv2
 import numpy as np
+from dataclasses import dataclass
 
+@dataclass
 class CnnClassficationResult:
     confidence: float
     resultString: str
@@ -22,11 +24,17 @@ class CnnClassifier:
         prediction = self.model.predict(np.array([image]))
         print(prediction)
         class_det = np.argmax(prediction, axis=1)
-        result = CnnClassficationResult()
         cnn_class_names = ["PointingFinger", "Victory", "Hello", "Thumb", "Horns", "OK"]
-        result.confidence = max(max(prediction))
-        result.resultString = cnn_class_names[class_det[0]]
-        result.img = image
+        result = CnnClassficationResult(
+            confidence=max(max(prediction)),
+            resultString=cnn_class_names[class_det[0]],
+            img=image
+        )
+        # cv2.imshow('test',image)
+        return result
+        # result.confidence = max(max(prediction))
+        # result.resultString = cnn_class_names[class_det[0]]
+        # result.img = image
         print('Detected ' + result.resultString + ' with confidence ' + str(result.confidence))
 
 # classifier = CnnClassifier()

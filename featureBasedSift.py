@@ -37,7 +37,7 @@ class FeatureBasedClassifier:
     def loadImageClasses(self):
         #Loading image classes
         print(os.listdir(os.curdir))
-        path = 'Classes'
+        path = 'FeatureBased/Classes'
         # images = []
         # classNames = []
 

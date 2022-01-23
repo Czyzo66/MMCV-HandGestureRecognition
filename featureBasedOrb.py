@@ -37,7 +37,7 @@ class FeatureBasedClassifierOrb:
     def loadImageClasses(self):
         #Loading image classes
         print(os.listdir(os.curdir))
-        path = 'Classes'
+        path = 'FeatureBased/Classes'
         # images = []
         # classNames = []
 
@@ -130,7 +130,7 @@ class FeatureBasedClassifierOrb:
             self.cleanup()
             return result
         else:
-            result = ClassficationResult(success=False,resultString="Result: Unknown")
+            result = ClassficationResult(success=False,resultString="Result: Unknown",matches=[],kp1=[],kp2=[],img1=[],accuracy='null',classNames=[],goodMatchList=[])
             self.cleanup()
             return result
 
