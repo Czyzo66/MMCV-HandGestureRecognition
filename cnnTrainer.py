@@ -7,15 +7,15 @@ from keras.models import Sequential
 from keras.layers.convolutional import Conv2D, MaxPooling2D
 from keras.layers import Dense, Flatten
 
-data_path = os.path.abspath('./Traindata')
+data_path = os.path.abspath('./Traindata2')
 os.path.exists(data_path)
 
 batch_size = 32
 class_names = ["Gesture_0", "Gesture_1", "Gesture_2", "Gesture_3", "Gesture_4", "Gesture_5"]
 global cnn_class_names
-cnn_class_names = ["PointingFinger", "Victory", "Hello", "Thumb", "Horns", "OK"]
+cnn_class_names = ["Flat", "Victory", "Hello", "Thumb", "Fist", "OK"]
 num_classes = len(class_names)
-img_size = 50
+img_size = 256
 num_channels = 3
 validation_size = 0.2
 
@@ -30,7 +30,7 @@ print("Number of files in Validation-set:\t{}".format(len(data.valid.labels)))
 model = Sequential()
 
 # Convolutional layer + RELU
-model.add(Conv2D(32, (5, 5), activation='relu', input_shape=(50, 50, 1)))
+model.add(Conv2D(32, (5, 5), activation='relu', input_shape=(img_size, img_size, 1)))
 # Max Pooling
 model.add(MaxPooling2D((2, 2)))
 # Convolutional layer + RELU
@@ -55,7 +55,7 @@ model.fit(data.train.images,
           validation_data=(data.train.images, data.train.labels))
 print('Saving model...')
 model.summary()
-model.save('handrecognition_cnn_model.h5')
+model.save('handrecognition_cnn_model2.h5')
 print('Saved model')
 print('Test model...')
 test_loss, test_acc = model.evaluate(data.valid.images, data.valid.labels)
