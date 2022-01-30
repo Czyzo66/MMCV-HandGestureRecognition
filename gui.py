@@ -24,8 +24,8 @@ def loadImage(canvas, img_id):
     global imgtk
     global imageToClassifyPure
     global imageToDisplay
-    filename = filedialog.askopenfilename(initialdir="/",title="Select Image",
-                                          filetypes=[('image files','*.jpg',)])
+    filename = filedialog.askopenfilename(initialdir="C:/Users/mitux/Desktop/woda/data/train",title="Select Image",
+                                          filetypes=[('image files','*.png',)])
     imageToClassifyPure = cv2.imread(filename)
     imageToClassify = imageToClassifyPure
     # cv2.imshow('test',imageToClassify)
